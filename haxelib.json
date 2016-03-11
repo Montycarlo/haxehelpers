@@ -1,0 +1,16 @@
+{
+	"name": "haxehelpers",
+	"license": "MIT",
+	"tags": [],
+	"description": "Haxe-Helpers is a set of reusable classes",
+	"contributors": [
+    "epidevJosh"
+  ],
+	"releasenote": "See https://github.com/Montycarlo/haxehelpers",
+	"version": "0.0.1",
+	"url": "https://github.com/Montycarlo/haxehelpers",
+	"classPath": "src/lib",
+	"dependencies": 
+	{
+	}
+}
