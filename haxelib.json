@@ -1,14 +1,14 @@
 {
-	"name": "haxehelpers",
+	"name": "react-helpers",
 	"license": "MIT",
 	"tags": [],
-	"description": "Haxe-Helpers is a set of reusable classes",
+	"description": "Helpers is a set of reusable classes for haxe-react",
 	"contributors": [
     "epidevJosh"
   ],
-	"releasenote": "See https://github.com/Montycarlo/haxehelpers",
+	"releasenote": "See https://github.com/Montycarlo/react-haxe-helpers",
 	"version": "0.0.1",
-	"url": "https://github.com/Montycarlo/haxehelpers",
+	"url": "https://github.com/Montycarlo/react-haxe-helpers",
 	"classPath": "src/lib",
 	"dependencies": {
 		"react" : "*"

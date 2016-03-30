@@ -1,4 +1,4 @@
-package haxehelpers.react;
+package helpers.react;
 
 import api.react.ReactComponent;
 import haxe.Timer;
