@@ -1,15 +1,15 @@
-package helpers.react.forms;
+package helpers.react.forms.nodes;
 
 import api.react.ReactComponent.ReactComponentOfPropsAndState;
 import api.react.ReactMacro.jsx;
-import helpers.react.forms.Label;
+import helpers.react.forms.nodes.Label;
 
-typedef InputProps = {
+private typedef InputProps = {
 	@optional public var type:String;
 	@optional public var label:String;
 }
 
-class InputState{
+private class InputState{
 	public var type:String;
 	public var label:Null<String>;
 	public function new(){}
@@ -27,7 +27,7 @@ class Input extends ReactComponentOfPropsAndState<InputProps, InputState>{
 
   override public function render(){
     return jsx('
-		<div>
+		<div className="form-group" key=${props.label}>
 			<Label text=${state.label} />
 			<input
 				type=${state.type}
