@@ -3,10 +3,12 @@ package helpers.react.forms.nodes;
 import api.react.ReactComponent.ReactComponentOfPropsAndState;
 import api.react.ReactMacro.jsx;
 import helpers.react.forms.nodes.Label;
+import helpers.react.forms.Form;
 
-private typedef InputProps = {
-	@optional public var type:String;
+private class InputProps{
+	@optional public var formkey:String;
 	@optional public var label:String;
+	@optional public var type:String;
 }
 
 private class InputState{
@@ -25,9 +27,11 @@ class Input extends ReactComponentOfPropsAndState<InputProps, InputState>{
 		state.label = props.label;
 	}
 
+	private function getFormkey():String return (props.formkey == null ? props.label : props.formkey);
+
   override public function render(){
     return jsx('
-		<div className="form-group" key=${props.label}>
+		<div className="form-group" key=${getFormkey()}>
 			<Label text=${state.label} />
 			<input
 				type=${state.type}
