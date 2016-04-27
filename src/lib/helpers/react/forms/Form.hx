@@ -5,19 +5,25 @@ import api.react.ReactComponent;
 import api.react.ReactComponent.ReactComponentOfState;
 import api.react.React;
 
-interface FormItem{
-	
-}
-
 private class FormState{}
 
-class FormItemProps{}
+typedef FormItemProps = {
+	@optional var onSubmit:Dynamic->Void;
+	@optional var children:Dynamic;
+}
 
-class Form extends ReactComponentOfState<FormState>{
+class Form extends ReactComponentOfPropsAndState<FormItemProps, FormState>{
+
+	private function submitHandler(e:Dynamic){
+		if(props.onSubmit != null) {
+			e.preventDefault();
+			props.onSubmit(e);
+		}
+	}
 
 	override public function render(){
 		return jsx('
-			<form>
+			<form onSubmit=${submitHandler}>
 				${this.props.children}
 				<button className="btn btn-primary">Submit</button>
 			</form>
