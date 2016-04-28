@@ -9,6 +9,7 @@ private class InputProps{
 	@optional public var formkey:String;
 	@optional public var label:String;
 	@optional public var type:String;
+	@optional public var bind:String->Void;
 }
 
 private class InputState{
@@ -29,12 +30,17 @@ class Input extends ReactComponentOfPropsAndState<InputProps, InputState>{
 
 	private function getFormkey():String return (props.formkey == null ? props.label : props.formkey);
 
+	private function onChange(e):Void{
+		if(props.bind != null) props.bind(e.target.value);
+	}
+
   override public function render(){
     return jsx('
 		<div className="form-group" key=${getFormkey()}>
 			<Label text=${state.label} />
 			<input
 				type=${state.type}
+				onChange=$onChange
 			></input>
 		</div>');
   }
