@@ -10,8 +10,6 @@ typedef LabelProps = {
 
 class Label extends ReactComponentOfProps<LabelProps>{
 	
-	public function new() super();
-
 	override public function render(){
 		if(props.text == null) return null;
 		return jsx('<label className=${props.className}>${props.text}</label>');
