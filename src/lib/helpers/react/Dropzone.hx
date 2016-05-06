@@ -2,7 +2,6 @@ package helpers.react;
 
 import api.react.ReactComponent;
 import api.react.ReactMacro.jsx;
-import api.react.ReactDOM;
 import js.Browser;
 import js.html.FileReader;
 import haxe.Json;
@@ -17,16 +16,16 @@ private abstract DragFileEvent(String) to String{
 }
 
 private typedef DropzoneProps = { 
-	@optional var binCb:String->Void;
-	@optional var b64Cb:String->Void;
-	@optional var cleartxtCb:String->Void;
-	@optional var jsonCb:Dynamic->Void;
+	@:optional var binCb:String->Void;
+	@:optional var b64Cb:String->Void;
+	@:optional var cleartxtCb:String->Void;
+	@:optional var jsonCb:Dynamic->Void;
 }
 
 class Dropzone extends ReactComponentOfProps<DropzoneProps>{
 
 	override public function componentDidMount(){
-		if(untyped Browser.window.FileReader == null) return;
+		if(untyped Browser.window.FileReader == null) return Browser.alert("USE A REAL BROWSER.");
 		var zone = Browser.document.getElementById("dropzone");
     zone.addEventListener(DRAG_OVER, cancel, false);
     zone.addEventListener(DRAG_ENTER, cancel, false);
