@@ -8,16 +8,16 @@ import helpers.react.forms.Form;
 import epidev.Selectize;
 
 private typedef InputProps = {
-	@optional public var bind:Field<String>;
+	@:optional public var bind:Field<String>;
 
 	//SelectizeProps
 	var ops:Array<ISelectizeOption>;
-	@optional var formkey:String;
-	@optional var startEmpty:Bool;
-	@optional var create:Bool;
-	@optional var placeholder:String;
-	@optional var label:String;
-	@optional var onChange:String->Void;
+	@:optional var formkey:String;
+	@:optional var startEmpty:Bool;
+	@:optional var create:Bool;
+	@:optional var placeholder:String;
+	@:optional var label:String;
+	@:optional var onChange:String->Void;
 }
 private class InputState{
 	public var value:Field<String>;
@@ -29,6 +29,14 @@ class ESelectize extends ReactComponentOfPropsAndState<InputProps, InputState>{
 	override public function componentWillMount(){
 		state = new InputState();
 		state.value = props.bind != null ? props.bind : new Field<String>();
+	}
+
+	override public function componentDidMount(){
+		
+	}
+
+	private function getInitialValue():Array<String>{
+		return ['${props.bind.get()}'];
 	}
 
 	private function getFormkey():String 
@@ -51,6 +59,7 @@ class ESelectize extends ReactComponentOfPropsAndState<InputProps, InputState>{
 	startEmpty=${props.startEmpty}
 	create=${props.create}
 	placeholder=${props.placeholder}
+	initialValue=${getInitialValue()}
 	label=${props.label}
 />
 ${state.value.errors}
