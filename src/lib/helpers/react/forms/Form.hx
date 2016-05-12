@@ -10,6 +10,8 @@ private class FormState{}
 typedef FormItemProps = {
 	@optional var onSubmit:Dynamic->Void;
 	@optional var children:Dynamic;
+	@optional var id:String;
+	@optional var className:String;
 }
 
 class Form extends ReactComponentOfPropsAndState<FormItemProps, FormState>{
@@ -23,7 +25,7 @@ class Form extends ReactComponentOfPropsAndState<FormItemProps, FormState>{
 
 	override public function render(){
 		return jsx('
-			<form onSubmit=${submitHandler}>
+			<form id=${props.id} className=${props.className} onSubmit=${submitHandler}>
 				${this.props.children}
 				<button className="btn btn-primary">Submit</button>
 			</form>

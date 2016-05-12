@@ -71,8 +71,9 @@ class DatePicker extends ReactComponentOfPropsAndState<DatePickerProps, DatePick
 	private inline function hideError():Void state.value.clean();
 
   override public function render(){
+		var className = 'form-group ${props.className}';
     return jsx('
-		<div className="form-group" key=${getFormkey()}>
+		<div id=${props.id} className=${className} key=${getFormkey()}>
 			<Label text=${props.label} />
 			<DatePicker_
 				selected=${state.value.value}

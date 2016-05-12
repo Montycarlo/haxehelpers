@@ -11,6 +11,8 @@ private class InputProps{
 	@optional public var label:String;
 	@optional public var type:String;
 	@optional public var bind:Field<String>;
+	@optional public var className:Field<String>;
+	@optional public var id:Field<String>;
 }
 
 private class InputState{
@@ -39,8 +41,9 @@ class Input extends ReactComponentOfPropsAndState<InputProps, InputState>{
 	private inline function hideError():Void state.value.clean();
 
   override public function render(){
+		var className = 'form-group ${props.className}';
     return jsx('
-		<div className="form-group" key=${getFormkey()}>
+		<div id=${props.id} className=${className} key=${getFormkey()}>
 			<Label text=${state.label} />
 			<input
 				type=${state.type}

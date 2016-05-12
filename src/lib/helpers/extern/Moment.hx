@@ -2,6 +2,7 @@ package helpers.extern;
 
 @:native("moment")
 extern class Moment{
+	/* http://momentjs.com/ */
 
 	public function new(?x:String, ?y:String);
 
