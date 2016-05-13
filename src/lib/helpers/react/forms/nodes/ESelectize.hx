@@ -15,6 +15,7 @@ private typedef InputProps = {
 	@:optional var formkey:String;
 	@:optional var startEmpty:Bool;
 	@:optional var create:Bool;
+	@:optional var visible:Bool;
 	@:optional var placeholder:String;
 	@:optional var label:String;
 	@:optional var onChange:String->Void;
@@ -53,6 +54,7 @@ class ESelectize extends ReactComponentOfPropsAndState<InputProps, InputState>{
 	private inline function hideError():Void state.value.clean();
 
   override public function render(){
+		if(props.visible == false) return null;
 		var className = 'form-group ${props.className}';
     return jsx('
 <div id=${props.id} className=${className} key=${getFormkey()}>
