@@ -16,17 +16,26 @@ private abstract DragFileEvent(String) to String{
 }
 
 private typedef DropzoneProps = { 
+	@:optional var id:String;
+	@:optional var msg:String;
 	@:optional var binCb:String->Void;
 	@:optional var b64Cb:String->Void;
 	@:optional var cleartxtCb:String->Void;
 	@:optional var jsonCb:Dynamic->Void;
 }
+private typedef DropzoneState = {
+	var id:String;
+}
 
 class Dropzone extends ReactComponentOfProps<DropzoneProps>{
 
+	override public function componentWillMount(){
+		setState({id:'dropzone${Std.random(10000)}'});
+	}
+
 	override public function componentDidMount(){
 		if(untyped Browser.window.FileReader == null) return Browser.alert("USE A REAL BROWSER.");
-		var zone = Browser.document.getElementById("dropzone");
+		var zone = Browser.document.getElementById(state.id);
     zone.addEventListener(DRAG_OVER, cancel, false);
     zone.addEventListener(DRAG_ENTER, cancel, false);
     zone.addEventListener(DRAG_DROP, droppedFile, false);
@@ -85,8 +94,7 @@ trace(e);
 	}
 
   override public function render(){
-    return jsx('<div id="dropzone" style={{background:"black",width:"300px",height:"300px"}}>
-			hello!
-		</div>');
+		var msg = props.msg != null ? props.msg : "Drag and drop your file here.";
+    return jsx('<div id=${state.id} className="dropzone">$msg</div>');
   }
 }
