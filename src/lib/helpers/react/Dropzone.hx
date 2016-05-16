@@ -18,6 +18,7 @@ private abstract DragFileEvent(String) to String{
 private typedef DropzoneProps = { 
 	@:optional var id:String;
 	@:optional var msg:String;
+	@:optional var img:String;
 	@:optional var binCb:String->Void;
 	@:optional var b64Cb:String->Void;
 	@:optional var cleartxtCb:String->Void;
@@ -95,6 +96,7 @@ trace(e);
 
   override public function render(){
 		var msg = props.msg != null ? props.msg : "Drag and drop your file here.";
-    return jsx('<div id=${state.id} className="dropzone">$msg</div>');
+		var img = props.img != null ? jsx('<img src=${props.img} />') : null;//$msg
+    return jsx('<div id=${state.id} className="dropzone">$msg$img</div>');
   }
 }
