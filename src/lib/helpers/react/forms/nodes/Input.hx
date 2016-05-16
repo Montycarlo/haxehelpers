@@ -7,12 +7,12 @@ import helpers.react.forms.model.Field;
 import helpers.react.forms.Form;
 
 private class InputProps{
-	@optional public var formkey:String;
-	@optional public var label:String;
-	@optional public var type:String;
-	@optional public var bind:Field<String>;
-	@optional public var className:Field<String>;
-	@optional public var id:Field<String>;
+	@:optional public var formkey:String;
+	@:optional public var label:String;
+	@:optional public var type:String;
+	@:optional public var bind:Field<String>;
+	@:optional public var className:Field<String>;
+	@:optional public var id:Field<String>;
 }
 
 private class InputState{
