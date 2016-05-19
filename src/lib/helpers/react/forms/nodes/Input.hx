@@ -36,7 +36,7 @@ class Input extends ReactComponentOfPropsAndState<InputProps, InputState>{
 	private function onChange(e):Void{
 		state.value.set(e.target.value);
 		hideError();
-		setState(state);
+		forceUpdate();
 	}
 	private inline function hideError():Void state.value.clean();
 

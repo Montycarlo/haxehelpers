@@ -39,7 +39,7 @@ class ESelectize extends ReactComponentOfPropsAndState<InputProps, InputState>{
 	}
 
 	private function getInitialValue():Array<String>{
-		return ['${props.bind.get()}'];
+		return props.bind!=null?['${props.bind.get()}']:[];
 	}
 
 	private function getFormkey():String 
