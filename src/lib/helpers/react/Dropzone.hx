@@ -35,7 +35,7 @@ class Dropzone extends ReactComponentOfProps<DropzoneProps>{
 	}
 
 	override public function componentDidMount(){
-		if(untyped Browser.window.FileReader == null) return Browser.alert("USE A REAL BROWSER.");
+		if(untyped Browser.window.FileReader == null) return Browser.alert("Use a real browser.");
 		var zone = Browser.document.getElementById(state.id);
     zone.addEventListener(DRAG_OVER, cancel, false);
     zone.addEventListener(DRAG_ENTER, cancel, false);
