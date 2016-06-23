@@ -66,10 +66,14 @@ class Dropzone extends ReactComponentOfProps<DropzoneProps>{
 		if(props.binCb != null) props.binCb(r);
 
 		if(props.b64Cb != null || props.cleartxtCb != null || props.jsonCb != null){
-			pre = "data:application/json;base64,";
-			if(r.indexOf(pre) != 0) throw "Failed to parse input file: Unexpected prelude.";
-			rr64 = r.substring(pre.length);
-			if(props.b64Cb != null) props.b64Cb(rr64);
+			var validPreludes:Array<String> = ["data:application/json;base64,", "data:;base64,"];
+			for(pre in validPreludes){
+				if(r.indexOf(pre) != 0) continue;
+				rr64 = r.substring(pre.length);
+				if(props.b64Cb != null) props.b64Cb(rr64);
+				break;
+			}
+			if(rr64 == "") throw "Failed to parse input file: Unexpected prelude.";
 		}
 
 		if(props.cleartxtCb != null || props.jsonCb != null){
