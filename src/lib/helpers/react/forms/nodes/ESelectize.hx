@@ -3,6 +3,7 @@ package helpers.react.forms.nodes;
 import api.react.ReactComponent.ReactComponentOfPropsAndState;
 import api.react.ReactMacro.jsx;
 import helpers.react.forms.nodes.Label;
+import helpers.react.forms.nodes.ErrorMsg;
 import helpers.react.forms.model.Field;
 import helpers.react.forms.Form;
 import epidev.Selectize;
@@ -34,10 +35,6 @@ class ESelectize extends ReactComponentOfPropsAndState<InputProps, InputState>{
 		state.value = props.bind != null ? props.bind : new Field<String>();
 	}
 
-	override public function componentDidMount(){
-		
-	}
-
 	private function getInitialValue():Array<String>{
 		return props.bind!=null?['${props.bind.get()}']:[];
 	}
@@ -67,7 +64,7 @@ class ESelectize extends ReactComponentOfPropsAndState<InputProps, InputState>{
 	initialValue=${getInitialValue()}
 	label=${props.label}
 />
-${state.value.errors}
+<ErrorMsg msg=${state.value.errors} />
 </div>');
   }
 

@@ -100,7 +100,7 @@ trace(e);
 
   override public function render(){
 		var msg = props.msg != null ? props.msg : "Drag and drop your file here.";
-		var img = props.img != null ? jsx('<img src=${props.img} />') : null;//$msg
+		var img = props.img != null ? jsx('<img src=${props.img} />') : null;
     return jsx('<div id=${state.id} className="dropzone">$msg$img</div>');
   }
 }

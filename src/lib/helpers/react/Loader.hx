@@ -43,7 +43,7 @@ class Loader extends ReactComponentOfPropsAndState<LoaderProps, LoaderState>{
 				  aria-valuenow="${percent()}" aria-valuemin="0" aria-valuemax="100" style=${state.pStyle}/>
 				</div>
 				<div>${percent()}%</div>
-				<div>${state.msg}%</div>
+				<div>${state.msg}</div>
 			</div>');
   }
 }

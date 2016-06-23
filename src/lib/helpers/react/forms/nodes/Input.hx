@@ -3,6 +3,7 @@ package helpers.react.forms.nodes;
 import api.react.ReactComponent.ReactComponentOfPropsAndState;
 import api.react.ReactMacro.jsx;
 import helpers.react.forms.nodes.Label;
+import helpers.react.forms.nodes.ErrorMsg;
 import helpers.react.forms.model.Field;
 import helpers.react.forms.Form;
 
@@ -50,7 +51,7 @@ class Input extends ReactComponentOfPropsAndState<InputProps, InputState>{
 				onChange=$onChange
 				value=${state.value.value}
 			></input>
-			${state.value.errors}
+			<ErrorMsg msg=${state.value.errors} />
 		</div>');
   }
 
