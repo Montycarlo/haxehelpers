@@ -6,7 +6,7 @@ extern class Moment{
 
 	public function new(?x:String, ?y:String);
 
-	public function format(x:String):String;
+	public function format(?x:String):String;
 
 	public function fromNow():String;
 
