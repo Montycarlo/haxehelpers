@@ -5,8 +5,6 @@ import api.react.ReactMacro.jsx;
 import js.Browser;
 import js.html.FileReader;
 import haxe.Json;
-import haxe.io.Bytes;
-import haxe.crypto.Base64;
 
 @:enum
 private abstract DragFileEvent(String) to String{
@@ -19,13 +17,22 @@ private typedef DropzoneProps = {
 	@:optional var id:String;
 	@:optional var msg:String;
 	@:optional var img:String;
-	@:optional var binCb:String->Void;
-	@:optional var b64Cb:String->Void;
 	@:optional var cleartxtCb:String->Void;
 	@:optional var jsonCb:Dynamic->Void;
 }
 private typedef DropzoneState = {
 	var id:String;
+}
+
+@:final class DropzoneFile{
+  public var name(default,null):String;
+  public var size(default,null):Int;
+  public var content(default,null):String;
+  public function new(name:String, size:Int, content:String){
+    this.name = name;
+    this.size = size;
+    this.content = content;
+  }
 }
 
 class Dropzone extends ReactComponentOfProps<DropzoneProps>{
@@ -51,51 +58,26 @@ class Dropzone extends ReactComponentOfProps<DropzoneProps>{
 		var dt = e.dataTransfer;
 		var files:Array<Dynamic> = dt.files;
 		for(f in files){
+      js.Browser.console.log(f);
 			var reader = new FileReader();
-			reader.onloadend = function(e) onFileLoad(e, reader);
-			reader.readAsDataURL(f);
+			reader.onloadend = function(e) onFileLoad(e, reader, f.name, f.size);
+			reader.readAsText(f);
 		}
 		return cancel(e);
 	}
 
-	private function onFileLoad(e, reader:FileReader):Void{
+	private function onFileLoad(e, reader:FileReader, name:String, size:Int):Void{
 		var r:String = reader.result;
-		var pre:String = "";
-		var rr64:String = "";
-		var rr:String = "";
-		if(props.binCb != null) props.binCb(r);
-
-		if(props.b64Cb != null || props.cleartxtCb != null || props.jsonCb != null){
-			var validPreludes:Array<String> = ["data:application/json;base64,", "data:;base64,"];
-			for(pre in validPreludes){
-				if(r.indexOf(pre) != 0) continue;
-				rr64 = r.substring(pre.length);
-				if(props.b64Cb != null) props.b64Cb(rr64);
-				break;
-			}
-			if(rr64 == "") throw "Failed to parse input file: Unexpected prelude.";
-		}
-
-		if(props.cleartxtCb != null || props.jsonCb != null){
+    if(props.cleartxtCb != null) props.cleartxtCb(new DropzoneFile(name, size, r));
+    if(props.jsonCb != null) {
+      var j;
 			try{
-				var rrb = Base64.decode(rr64);
-				rr = rrb.getString(0,rrb.length);
+				j = Json.parse(r);
 			}catch(e:Dynamic){
-				throw "Failed to parse input file: Unexpected non-b64 body.";
-			}
-			if(props.cleartxtCb != null) props.cleartxtCb(rr);
-		}
-
-		if(props.jsonCb != null){
-			var j;
-			try{
-				j = Json.parse(rr);
-			}catch(e:Dynamic){
-trace(e);
 				throw "Failed to parse input file: Invalid JSON.";
 			}
-			props.jsonCb(j);
-		}
+      props.jsonCb(j);
+    }
 	}
 
   override public function render(){
