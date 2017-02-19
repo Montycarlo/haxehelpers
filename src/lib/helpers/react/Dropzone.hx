@@ -17,11 +17,12 @@ private typedef DropzoneProps = {
 	@:optional var id:String;
 	@:optional var msg:String;
 	@:optional var img:String;
-	@:optional var cleartxtCb:String->Void;
+	@:optional var cleartxtCb:DropzoneFile->Void;
 	@:optional var jsonCb:Dynamic->Void;
 }
 private typedef DropzoneState = {
 	var id:String;
+  var msg:String;
 }
 
 @:final class DropzoneFile{
@@ -38,7 +39,7 @@ private typedef DropzoneState = {
 class Dropzone extends ReactComponentOfProps<DropzoneProps>{
 
 	override public function componentWillMount(){
-		setState({id:'dropzone${Std.random(10000)}'});
+		setState({id:'dropzone${Std.random(10000)}', msg:props.msg});
 	}
 
 	override public function componentDidMount(){
@@ -58,11 +59,12 @@ class Dropzone extends ReactComponentOfProps<DropzoneProps>{
 		var dt = e.dataTransfer;
 		var files:Array<Dynamic> = dt.files;
 		for(f in files){
-      js.Browser.console.log(f);
 			var reader = new FileReader();
 			reader.onloadend = function(e) onFileLoad(e, reader, f.name, f.size);
 			reader.readAsText(f);
 		}
+    state.msg = 'Reading file \'${f.name}\'';
+    forceUpdate();
 		return cancel(e);
 	}
 
@@ -78,6 +80,8 @@ class Dropzone extends ReactComponentOfProps<DropzoneProps>{
 			}
       props.jsonCb(j);
     }
+    state.msg = '\'${f.name}\'';
+    forceUpdate();
 	}
 
   override public function render(){
